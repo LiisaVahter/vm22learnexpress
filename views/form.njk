@@ -2,20 +2,23 @@
 {% block title %}Form{%endblock%}
 {% block content%}
 <h1>Form</h1>
+{% if fname and lname and age%}
+<p>Hello {{ fname }} {{ lname }}! You are {{ age }} years old</p>
+{% endif %}
 <form >
 <p>
     <label for="fname">First name</label> <br>
-    <input id = "fname" type="text" placeholder= "First name" name="frame">
+    <input id = "fname" type="text" placeholder= "First name" name="fname">
 </p>
 
   <p>
      <label for="fname">Last name</label> <br>
-    <input id = "fname" type="text" placeholder= "Last name" name="frame">
+    <input id = "fname" type="text" placeholder= "Last name" name="lname">
   </p>
 
    <p>
     <label for="fname">Age</label> <br>
-    <input id = "fname" type="number" min= "0" max= "200" step= "0.1" placeholder= "Age" name="frame">
+    <input id = "fname" type="number" min= "0" max= "200" step= "0.1" placeholder= "Age" name="age">
    </p>
 
  <p>
