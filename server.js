@@ -1,5 +1,5 @@
-const express = require('nunjucks');
-const nunjucks = require('express');
+const express = require('express');
+const nunjucks = require('nunjucks');
 const app = express();
 const port = 3000;
 
@@ -9,15 +9,19 @@ nunjucks.configure('views', {
 });
 
 app.get('/', (req, res) => {
-  res.render(__dirname + '/index.html');
+  res.render('index.njk');
 //   console.log('somebody visited');
 });
 
 app.get('/page2', (req, res) => {
-    res.render(__dirname + '/page2.html');
+    res.render('page2.njk');
   //   console.log('somebody visited');
   });
 
+  app.get('/form', (req, res) => {
+    res.render('form.njk');
+  //   console.log('somebody visited');
+  });
 
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
