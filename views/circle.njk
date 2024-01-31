@@ -1,0 +1,18 @@
+{% extends "partials/layout.njk" %}
+{% block title %}Circle{%endblock%}
+{% block content%}
+<h1>Circle</h1>
+<form method= 'POST'>
+<p>
+
+    <label>
+        Radius<br>
+        <input type="number" placeholder= 'Radius'name='radius' min= "0">
+    </label>
+</p>
+<p>
+ <input type="submit" value= 'Send' >
+</p>
+
+</form>
+{%endblock%}
