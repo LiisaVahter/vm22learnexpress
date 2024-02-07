@@ -1,0 +1,8 @@
+{% extends "partials/layout.njk" %}
+{% block title %}Home{%endblock%}
+{% block content%}
+<form action="/movies/add" method="POST">
+<input type= "text" placeholder= "Movie name" name="movie">
+<input type="submit" value="Add">
+</form>
+{% endblock %}
