@@ -39,8 +39,23 @@ router.post('/add' , (req,res) => {
 
 });
 
+router.get('/view' , (req,res) => {
+    let id = parseInt(req.query.id);
+    let movies = fs.readFileSync('movies.json', 'utf-8');
+    movies = JSON.parse(movies);
+    let movie = movies.movies.find(m => m.id === id);
+    res.render('movies/view.njk', {movie: movie});
 
+});
 
+router.get('/edit/:id' , (req,res) => {
+    let id = parseInt(req.query.id);
+    let movies = fs.readFileSync('movies.json', 'utf-8');
+    movies = JSON.parse(movies);
+    let movie = movies.movies.find(m => m.id === id);
+    res.render('movies/edit.njk', {movie: movie});
+
+});
 
 
 module.exports = router;
