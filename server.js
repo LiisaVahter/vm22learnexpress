@@ -1,9 +1,19 @@
 const express = require('express');
-const nunjucks = require('nunjucks');
+const nunjucks = require('nunjucks')
 const app = express();
-const port = 3000;
+const port = 8080;
 
-app.use(express.urlencoded( {extended:true}));
+const cookieParser = require('cookie-parser')
+app.use(cookieParser())
+const session = require('express-session');
+app.use(session({
+  secret: 'secret'
+}))
+
+app.use(express.urlencoded({
+  extended:true
+}));
+
 
 nunjucks.configure('views', {
     autoescape: true,
@@ -12,35 +22,43 @@ nunjucks.configure('views', {
 
 app.get('/', (req, res) => {
   res.render('index.njk');
-//   console.log('somebody visited');
+  //console.log('somebody visited');
 });
 
 app.get('/page2', (req, res) => {
-    res.render('page2.njk');
-  //   console.log('somebody visited');
-  });
+    res.render ('page2.njk');
+});
 
-  app.get('/form', (req, res) => {
-    console.log(req.query);
-    res.render('form.njk', req.query);
-  //   console.log('somebody visited');
-  });
-
-  app.get('/circle', (req, res) => {
-    res.render('circle.njk', req.query);
-  });
-  
-  app.post('/circle', (req, res) => {
-    let area = Math.PI * req.body.radius * req.body.radius;
-    let circumference = 2 * Math.PI * req.body.radius;
-    let volume = 4/3 * Math.PI * req.body.radius * req.body.radius * req.body.radius;
-    res.render("circleAnswer.njk", {r: req.body.radius, a: area, c: circumference, v: volume });
-  });
+app.get('/form', (req, res) => {
+  console.log(req.query);
+  res.render ('form.njk', req.query);
+});
 
 
-  const movieController = require('./src/movieController.js');
-  app.use('/movies', movieController);
-  
-  app.listen(port, () => {
-    console.log(`Example app listening on port http://localhost:${port}`);
-  });
+app.get('/circle', (req, res) => {
+  console.log(req.query);
+  res.render ('circle.njk', req.query);
+});
+
+app.post('/circle', (req, res) => {
+  let area = Math.PI * req.body.radius * req.body.radius;
+  let diameter = 2 * Math.PI * req.body.radius;
+  let volume = 4/3 * Math.PI * req.body.radius * req.body.radius * req.body.radius;
+  res.render('circleAnswer.njk',{r: req.body.radius, a: area, d: diameter, v: volume });
+});
+const movieController =require('./src/movieController.js');
+app.use('/movies', movieController);
+
+app.get('/cookie', (req, res)=> {
+res.cookie('mycookie', 'sexy cookie', {maxAge:1000*60*60*24*30})
+res.send(req.cookies);
+if(!req.session.secretValue)
+res.session.secretValue = 'shush baby'
+res.send(req.session);
+});
+const authController = require('./src/models/authController.js');
+app.use(authController)
+
+app.listen(port, () => {
+  console.log(`Example app listening on port http://localhost:${port}`);
+});
