@@ -1,7 +1,7 @@
 const express = require('express');
 const nunjucks = require('nunjucks')
 const app = express();
-const port = 8080;
+const port = 3000;
 
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
@@ -56,7 +56,7 @@ if(!req.session.secretValue)
 res.session.secretValue = 'shush baby'
 res.send(req.session);
 });
-const authController = require('./src/models/authController.js');
+const authController = require('./src/authController.js');
 app.use(authController)
 
 app.listen(port, () => {

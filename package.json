@@ -7,9 +7,10 @@
         "start": "nodemon -e js,json,njk"
     },
     "keywords": [],
-    "author": "Hanna-Liisa Kaarmann",
+    "author": "Liisa Vahter",
     "license": "ISC",
     "dependencies": {
+        "bcrypt": "^5.1.1",
         "cookie-parser": "^1.4.6",
         "express": "^4.18.2",
         "express-session": "^1.18.0",
